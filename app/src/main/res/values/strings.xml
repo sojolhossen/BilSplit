@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Bill Split</string>
+    <string name="status_perfect">Perfect! Bill is fully split.</string>
+</resources>

@@ -26,12 +26,29 @@
             android:exported="false" />
 
         <activity
+            android:name=".ItemizedSplitActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".ExpenseTrackerActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".HistoryGroupsActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".CustomSplitActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
 
         <activity
             android:name=".ResultActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ItemizedResultActivity"
             android:exported="false" />
 
         <activity

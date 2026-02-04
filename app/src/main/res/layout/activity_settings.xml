@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F9FA">
+    android:background="?attr/colorSurface">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/headerLayout"
@@ -13,7 +13,7 @@
         android:layout_height="60dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:background="#F8F9FA"
+        android:background="?attr/colorSurface"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -24,7 +24,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
-            app:tint="@color/black"
+            app:tint="?attr/colorOnSurface"
             android:contentDescription="Go back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -36,7 +36,7 @@
             android:text="Settings"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnSurface"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="General"
-                android:textColor="#4CAF50"
+                android:textColor="?attr/colorPrimary"
                 android:textStyle="bold"
                 android:textSize="14sp"
                 android:layout_marginStart="20dp"
@@ -69,12 +69,35 @@
                 android:layout_marginBottom="8dp"/>
 
             <TextView
+                android:id="@+id/menuTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Theme"
+                android:textSize="16sp"
+                android:textColor="?attr/colorOnSurface"
+                android:padding="16dp"
+                android:gravity="center_vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground"
+                android:drawableStart="@drawable/ic_theme"
+                android:drawableEnd="@drawable/ic_arrow_right"
+                android:drawablePadding="16dp"
+                app:drawableTint="?attr/colorOnSurfaceVariant"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/colorOutline"
+                android:layout_marginStart="50dp"/>
+
+            <TextView
                 android:id="@+id/menuCurrency"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Change Currency"
                 android:textSize="16sp"
-                android:textColor="#333333"
+                android:textColor="?attr/colorOnSurface"
                 android:padding="16dp"
                 android:gravity="center_vertical"
                 android:clickable="true"
@@ -83,12 +106,12 @@
                 android:drawableStart="@drawable/ic_currency"
                 android:drawableEnd="@drawable/ic_arrow_right"
                 android:drawablePadding="16dp"
-                app:drawableTint="#555555"/>
+                app:drawableTint="?attr/colorOnSurfaceVariant"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#E0E0E0"
+                android:background="?attr/colorOutline"
                 android:layout_marginStart="50dp"/>
 
 
@@ -96,7 +119,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Misc"
-                android:textColor="#4CAF50"
+                android:textColor="?attr/colorPrimary"
                 android:textStyle="bold"
                 android:textSize="14sp"
                 android:layout_marginStart="20dp"
@@ -109,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:text="Privacy Policy"
                 android:textSize="16sp"
-                android:textColor="#333333"
+                android:textColor="?attr/colorOnSurface"
                 android:padding="16dp"
                 android:gravity="center_vertical"
                 android:clickable="true"
@@ -118,12 +141,12 @@
                 android:drawableStart="@drawable/ic_privacy"
                 android:drawableEnd="@drawable/ic_arrow_right"
                 android:drawablePadding="16dp"
-                app:drawableTint="#555555"/>
+                app:drawableTint="?attr/colorOnSurfaceVariant"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#E0E0E0"
+                android:background="?attr/colorOutline"
                 android:layout_marginStart="50dp"/>
 
             <TextView
@@ -132,7 +155,7 @@
                 android:layout_height="wrap_content"
                 android:text="Rate Us on Play Store"
                 android:textSize="16sp"
-                android:textColor="#333333"
+                android:textColor="?attr/colorOnSurface"
                 android:padding="16dp"
                 android:gravity="center_vertical"
                 android:clickable="true"
@@ -141,12 +164,12 @@
                 android:drawableStart="@drawable/ic_rate"
                 android:drawableEnd="@drawable/ic_arrow_right"
                 android:drawablePadding="16dp"
-                app:drawableTint="#555555"/>
+                app:drawableTint="?attr/colorOnSurfaceVariant"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#E0E0E0"
+                android:background="?attr/colorOutline"
                 android:layout_marginStart="50dp"/>
 
             <TextView
@@ -155,7 +178,7 @@
                 android:layout_height="wrap_content"
                 android:text="Share with Friends"
                 android:textSize="16sp"
-                android:textColor="#333333"
+                android:textColor="?attr/colorOnSurface"
                 android:padding="16dp"
                 android:gravity="center_vertical"
                 android:clickable="true"
@@ -164,12 +187,12 @@
                 android:drawableStart="@drawable/ic_share"
                 android:drawableEnd="@drawable/ic_arrow_right"
                 android:drawablePadding="16dp"
-                app:drawableTint="#555555"/>
+                app:drawableTint="?attr/colorOnSurfaceVariant"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#E0E0E0"
+                android:background="?attr/colorOutline"
                 android:layout_marginStart="50dp"/>
 
             <TextView
@@ -178,7 +201,7 @@
                 android:layout_height="wrap_content"
                 android:text="Help &amp; Feedback"
                 android:textSize="16sp"
-                android:textColor="#333333"
+                android:textColor="?attr/colorOnSurface"
                 android:padding="16dp"
                 android:gravity="center_vertical"
                 android:clickable="true"
@@ -187,7 +210,7 @@
                 android:drawableStart="@drawable/ic_help"
                 android:drawableEnd="@drawable/ic_arrow_right"
                 android:drawablePadding="16dp"
-                app:drawableTint="#555555"/>
+                app:drawableTint="?attr/colorOnSurfaceVariant"/>
 
 
 

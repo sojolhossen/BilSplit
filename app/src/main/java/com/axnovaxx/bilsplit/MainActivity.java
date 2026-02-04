@@ -8,11 +8,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-// ✅ এই লাইনটি যোগ করতে আপনি ভুলে গিয়েছিলেন
+// 
 import androidx.core.splashscreen.SplashScreen;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -20,14 +21,17 @@ import androidx.core.view.WindowInsetsCompat;
 public class MainActivity extends AppCompatActivity {
 
     EditText etBillAmount, etTip, etPeople, etTipAmountInput, etTax;
-    Button btnSplitNow, btnCustomSplit;
-    ImageView btnSettings;
+    Button btnSplitNow, btnCustomSplit, btnItemizedSplit;
+    ImageView btnSettings, btnHistory, btnExpenseTracker;
 
     String currencySymbol = "$";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // ✅ এই লাইনটি আপনি মিস করেছিলেন! এটি অবশ্যই super.onCreate এর আগে থাকতে হবে
+        // Apply theme before setting content view
+        applyThemeFromPreferences();
+        
+        // 
         SplashScreen.installSplashScreen(this);
 
         super.onCreate(savedInstanceState);
@@ -56,7 +60,10 @@ public class MainActivity extends AppCompatActivity {
         etPeople = findViewById(R.id.etPeople);
         btnSplitNow = findViewById(R.id.btnSplitNow);
         btnCustomSplit = findViewById(R.id.btnCustomSplit);
+        btnItemizedSplit = findViewById(R.id.btnItemizedSplit);
         btnSettings = findViewById(R.id.btnSettings);
+        btnHistory = findViewById(R.id.btnHistory);
+        btnExpenseTracker = findViewById(R.id.btnExpenseTracker);
 
         // Click Listeners
         btnSettings.setOnClickListener(v -> {
@@ -64,10 +71,25 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        btnHistory.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, HistoryGroupsActivity.class);
+            startActivity(intent);
+        });
+
+        btnExpenseTracker.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ExpenseTrackerActivity.class);
+            startActivity(intent);
+        });
+
         btnSplitNow.setOnClickListener(v -> processAndNavigate());
 
         btnCustomSplit.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, CustomSplitActivity.class);
+            startActivity(intent);
+        });
+
+        btnItemizedSplit.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ItemizedSplitActivity.class);
             startActivity(intent);
         });
     }
@@ -114,6 +136,9 @@ public class MainActivity extends AppCompatActivity {
                 finalTipPercent = Double.parseDouble(tipPercentStr);
             }
 
+            // Save to history before navigating
+            saveToHistory(billWithTax, finalTipPercent, taxAmount, people);
+
             Intent intent = new Intent(MainActivity.this, ResultActivity.class);
             intent.putExtra("BILL", billWithTax);
             intent.putExtra("TIP_PERCENT", finalTipPercent);
@@ -124,6 +149,48 @@ public class MainActivity extends AppCompatActivity {
 
         } catch (NumberFormatException e) {
             Toast.makeText(this, "Invalid input", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void saveToHistory(double totalAmount, double tipPercent, double taxAmount, int peopleCount) {
+        try {
+            DatabaseHelper databaseHelper = DatabaseHelper.getInstance(this);
+            
+            // Create SplitHistory object
+            SplitHistory splitHistory = new SplitHistory();
+            splitHistory.setTotalAmount(totalAmount);
+            splitHistory.setTipPercentage(tipPercent);
+            splitHistory.setTaxAmount(taxAmount);
+            splitHistory.setPeopleCount(peopleCount);
+            splitHistory.setCurrencySymbol(currencySymbol);
+            splitHistory.setSplitType("Equal Split");
+            splitHistory.setNotes("Regular split with " + peopleCount + " people");
+            
+            // Save to database
+            long result = databaseHelper.insertSplitHistory(splitHistory);
+            if (result != -1) {
+                Toast.makeText(this, "Saved to history", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error saving to history", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void applyThemeFromPreferences() {
+        SharedPreferences prefs = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+        String themeMode = prefs.getString("theme_mode", "light");
+        
+        switch (themeMode) {
+            case "dark":
+                androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+                break;
+            case "system":
+                androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                break;
+            default:
+                androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+                break;
         }
     }
 }
